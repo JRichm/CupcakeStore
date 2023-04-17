@@ -98,5 +98,5 @@ cupcake_list = [
     cupcake3
 ]
 
-write_new_csv("test.csv", cupcake_list)
-read_csv("test.csv")
+write_new_csv("sample.csv", cupcake_list)
+read_csv("sample.csv")
