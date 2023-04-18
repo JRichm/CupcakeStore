@@ -4,10 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <h1>test</h1>
+    <main>
+        <aside id="menu-options">
+            <div class="main-inner-menu-box" >
+                <button id="open-cake">Cake Flavor</button>
+                <button id="open-frosting">Frosting Flavor</button>
+                <button id="open-toppings">Toppings</button>
+                <button id="open-charm">Cupcake Charm</button>
+            </div>
+            <div class="hidden" class="inner-menu-box">
+                <button id="selection-header">Cake Flavor</button>
+                <button id="cake-vanilla">Vanilla</button>
+                <button id="cake-chocolate">Chocolate</button>
+                <button id="cake-strawberry">Strawberry</button>
+                <button id="cake-red-velvet">Red Velvet</button>
+            </div>
+            <div class="hidden" class="inner-menu-box">
+                <button id="selection-header">Frosting Flavor</button>
+                <button id="frosting-vanilla">Vanilla</button>
+                <button id="frosting-chocolate">Chocolate</button>
+                <button id="frosting-strawberry">Strawberry</button>
+                <button id="frosting-cream-cheese">Cream Cheese</button>
+            </div>
+            <div class="hidden" class="inner-menu-box">
+                <button id="selection-header">Toppings</button>
+                <button id="topping-sprinkles">Sprinkles</button>
+                <button id="topping-chocolate-shavings">Chocolate Shavings</button>
+                <button id="topping-strawberry">Strawberry</button>
+            </div>
+            <div class="hidden" class="inner-menu-box">
+                <button id="selection-header">Cupcake Charm</button>
+                <button id=""></button>
+                <button id=""></button>
+                <button id=""></button>
+            </div>
+        </aside>
+        <section id="cupcake-preview">
+            <div id="cupcake-description">
+                <p>Cake Flavor:</p>
+                <p>Frosting Flavor:</p>
+                <p>Toppings:</p>
+                <p>Cupcake Charm:</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

@@ -1,0 +1,26 @@
+header {
+    background-color: #bee7e8;
+    height: 200px;
+}
+
+body {
+    background-color: #a0d2db;
+    margin: 0px;
+}
+
+main {
+    background-color: white;
+    height: 1800px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+#cupcake-of-the-day {
+    background-color: #fed766;
+    padding: 20px 0px 20px 0px;
+}
+
+#cupcake-of-the-day div {
+    background-color: white;
+    height: 500px;
+}

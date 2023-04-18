@@ -85,6 +85,12 @@ def add_cupcake(file, cupcake):
                              'flavor': cupcake.flavor,
                              'frosting': cupcake.frosting,
                              'sprinkles': cupcake.sprinkles})
+            
+def get_cupcakes(file):
+    with open(file) as csvfile:
+        reader = csv.DictReader(csvfile)
+        reader = list(reader)
+        return reader
 
 cupcake1 = Mini("Stars and Stripes", 2.99, "Vanilla", "Vanilla", "Chocolate")
 cupcake1.add_sprinkles("Red", "White", "Blue")

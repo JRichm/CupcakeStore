@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <script>
 
     </script>
     <title>Document</title>
 </head>
 <body>
-    <div id="content">
-        <h1>header</h1>
-        <p>p</p>
-    </div>
+    <header>
+
+    </header>
+    <main>
+        <section id="cupcake-of-the-day">
+            <div id="cupcake-area">
+
+            </div>
+
+        </section>
+        <section id="cupcake-display-area">
+            {% for cupcake in cupcakes %}
+                <h3>{{ cupcake["name"] }}</h3>
+                <h4>Flavor: {{ cupcake["name"] }}</h4>
+                <h4>Frosting: {{ cupcake["frosting"] }}</h4>
+                <h4><b>Price: {{ cupcake["price"] }}</b></h4>
+            {% endfor %}
+        </section>
+    </main>
 </body>
 </html>
