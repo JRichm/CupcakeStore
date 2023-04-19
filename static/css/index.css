@@ -88,3 +88,28 @@ main {
     border-color: #fed766;
     cursor: pointer;
 }
+
+#hover-square {
+    background-color: #bee7e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    margin-top: -248px;
+    margin-left: -25px;
+    padding: 25px;
+    border-radius: 22px;
+    opacity: 75%;
+}
+
+#hover-square-text {
+    font-size: 25px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.hidden {
+    display: none !important;
+}

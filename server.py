@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from cupcakes import get_cupcakes
 app = Flask(__name__, static_url_path='/static')
+import controller
 
 @app.route("/")
 def home():
@@ -18,6 +19,10 @@ def individual_cupcake():
 @app.route("/order")
 def order():
     return render_template('order.html')
+
+@app.route("/cart-data")
+def cart_data():
+    return controller.get_cart()
 
 if __name__ == "__main__":
     app.env = 'development'

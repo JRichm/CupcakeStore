@@ -20,8 +20,17 @@
                 })
             </script>
             <div id="cart">
-                <button>Cart</button>
+                <button id="cart-button">Cart</button>
                 <p id="cart-qty">0x</p>
+                <script>
+                    const cartbutton = document.getElementById('cart-button');
+
+                    cartbutton.addEventListener('mouseenter', async function() {
+                        const res = await fetch('/cart-data');
+                        const cartData = await res.json();
+                        console.log(cartData);
+                    })
+                </script>
             </div>
         </div>
     </header>
@@ -50,27 +59,38 @@
                 let hoverSquare = document.createElement('div'),
                     hoverSquareText = document.createElement('p'),
                     cupcakeElements = document.getElementsByClassName('cupcake-element'),
-                    currentElement;
+                    currentElement, previousElement;
+
+                hoverSquare.id = 'hover-square'
+                hoverSquareText.innerHTML = 'add to cart'
+                hoverSquareText.id = 'hover-square-text'
+                hoverSquare.appendChild(hoverSquareText);
 
                 // each cupcake square
                 for (eachElement in cupcakeElements) {
                     if (cupcakeElements[eachElement].nodeType === 1) {
 
-                        // hover
+                        // mouse hover
                         cupcakeElements[eachElement].addEventListener('mouseover', e => {
-                            if (e.target.className === 'cupcake-element' && e.target != currentElement) {
+                            if (e.target.className === 'cupcake-element') {
                                 if (e.target.id === '') {
-                                    currentElement = e.target.parentElement.id
+                                    currentElement = e.target.parentElement
                                 } else {
-                                    currentElement = e.target.id;
+                                    currentElement = e.target;
                                 }
-                                console.log(currentElement)
+
+                                if (currentElement != previousElement) {
+                                    previousElement = currentElement
+                                    hoverSquare.classList.remove('hidden');
+                                    currentElement.appendChild(hoverSquare)
+                                }
                             }
                         })
 
                         // mouse leave
                         cupcakeElements[eachElement].addEventListener('mouseleave', e => {
-                            currentElement = undefined
+                            currentElement, previousElement = undefined
+                            hoverSquare.classList.add('hidden');
                             console.log('mouse-out');
                         })
 

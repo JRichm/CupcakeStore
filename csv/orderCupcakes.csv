@@ -1,1 +1,2 @@
-name, flavor, frosting, filling, sprinkles, price
+name,flavor,frosting,filling,sprinkles,price,quantity
+O.G.,Vanilla,Chocolate,None,[],2.00,6
