@@ -1,10 +1,10 @@
 from flask import Flask, render_template
 from cupcakes import get_cupcakes
-
 app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def home():
+    cupcakes = get_cupcakes('./csv/storeCupcakes.csv')
     return render_template('index.html', cupcakes = get_cupcakes('./csv/storeCupcakes.csv'))
 
 @app.route("/cupcakes")

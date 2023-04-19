@@ -87,22 +87,10 @@ def add_cupcake(file, cupcake):
                              'sprinkles': cupcake.sprinkles})
             
 def get_cupcakes(file):
-    with open(file) as csvfile:
-        reader = csv.DictReader(csvfile)
+    with open(file) as storeCupcakes:
+        reader = csv.DictReader(storeCupcakes)
         reader = list(reader)
         return reader
 
-cupcake1 = Mini("Stars and Stripes", 2.99, "Vanilla", "Vanilla", "Chocolate")
-cupcake1.add_sprinkles("Red", "White", "Blue")
-cupcake2 = Mini("Oreo", .99, "Chocolate", "Cookies and Cream", None)
-cupcake2.add_sprinkles("Oreo pieces")
-cupcake3 = Mini("Red Velvet", 3.99, "Red Velvet", "Cream Cheese", None)
-
-cupcake_list = [
-    cupcake1,
-    cupcake2,
-    cupcake3
-]
-
-write_new_csv("sample.csv", cupcake_list)
+# write_new_csv("sample.csv", cupcake_list)
 read_csv("sample.csv")

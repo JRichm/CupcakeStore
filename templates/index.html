@@ -12,7 +12,18 @@
 </head>
 <body>
     <header>
-
+        <div id="button-area">
+            <button id="create-cupcake">Create Cupcake</button>
+            <script>
+                document.getElementById('create-cupcake').addEventListener('click', e => {
+                    window.location.href = '/order'
+                })
+            </script>
+            <div id="cart">
+                <button>Cart</button>
+                <p id="cart-qty">0x</p>
+            </div>
+        </div>
     </header>
     <main>
         <section id="cupcake-of-the-day">
@@ -22,12 +33,58 @@
 
         </section>
         <section id="cupcake-display-area">
-            {% for cupcake in cupcakes %}
-                <h3>{{ cupcake["name"] }}</h3>
-                <h4>Flavor: {{ cupcake["name"] }}</h4>
-                <h4>Frosting: {{ cupcake["frosting"] }}</h4>
-                <h4><b>Price: {{ cupcake["price"] }}</b></h4>
-            {% endfor %}
+            <div class="cupcakes">
+                {% for cupcake in cupcakes %}
+                <div class="cupcake-element" id="{{ cupcake['name'] }}">
+                    <h3>{{ cupcake["name"] }}</h3>
+                    <h4>Flavor: {{ cupcake["flavor"] }}</h4>
+                    <h4>Frosting: {{ cupcake["frosting"] }}</h4>
+                    <h4>Sprinkles: {{ cupcake["sprinkles"] }}</h4>
+                    <h4>Price: {{ cupcake["price"] }}</h4>
+                </div>
+                {% endfor %}
+            </div>
+            <script>
+
+                // document selectors
+                let hoverSquare = document.createElement('div'),
+                    hoverSquareText = document.createElement('p'),
+                    cupcakeElements = document.getElementsByClassName('cupcake-element'),
+                    currentElement;
+
+                // each cupcake square
+                for (eachElement in cupcakeElements) {
+                    if (cupcakeElements[eachElement].nodeType === 1) {
+
+                        // hover
+                        cupcakeElements[eachElement].addEventListener('mouseover', e => {
+                            if (e.target.className === 'cupcake-element' && e.target != currentElement) {
+                                if (e.target.id === '') {
+                                    currentElement = e.target.parentElement.id
+                                } else {
+                                    currentElement = e.target.id;
+                                }
+                                console.log(currentElement)
+                            }
+                        })
+
+                        // mouse leave
+                        cupcakeElements[eachElement].addEventListener('mouseleave', e => {
+                            currentElement = undefined
+                            console.log('mouse-out');
+                        })
+
+                        // click
+                        cupcakeElements[eachElement].addEventListener('click', e => {
+                            if (e.target.id === '') {
+                                console.log('Add ' + e.target.parentElement.id + ' to cart!')
+                            } else {
+                                console.log('Add ' + e.target.id + ' to cart!');
+                            }
+                        })
+                    }
+                }
+            </script>
         </section>
     </main>
 </body>

@@ -1,6 +1,43 @@
 header {
     background-color: #bee7e8;
-    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 75px 100px 75px 100px;
+}
+
+#button-area {
+    display: flex;
+    flex-direction: row;
+}
+
+#button-area button {
+    background-color: #ffcad4;
+    font-size: larger;
+    color: black;
+    height: 50px;
+    width: 200px;
+    margin: 5px;
+    border: none;
+    border-radius: 25px;
+}
+
+
+#button-area button:hover {
+    cursor: pointer;
+    background-color: #f4acb7;
+    color: white;
+}
+
+#cart-qty {
+    background-color: #a0d2db;
+    position: absolute;
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+    padding: 3px 10px 3px 10px;
+    margin: -65px 0px 0px 180px;
+    border-radius: 15px;
 }
 
 body {
@@ -23,4 +60,31 @@ main {
 #cupcake-of-the-day div {
     background-color: white;
     height: 500px;
+}
+
+#cupcake-display-area {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.cupcakes {
+    display: grid;
+    grid-template-columns: 250px 250px 250px;
+    gap: 200px;
+}
+
+.cupcake-element {
+    width: 250px;
+    height: 250px;
+    border: solid;
+    border-color: #ffcad4;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.cupcake-element:hover {
+    border-color: #fed766;
+    cursor: pointer;
 }
