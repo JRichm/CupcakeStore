@@ -22,13 +22,27 @@
             <div id="cart">
                 <button id="cart-button">Cart</button>
                 <p id="cart-qty">0x</p>
+                <div id="cart-list"></div>
                 <script>
                     const cartbutton = document.getElementById('cart-button');
 
                     cartbutton.addEventListener('mouseenter', async function() {
                         const res = await fetch('/cart-data');
                         const cartData = await res.json();
-                        console.log(cartData);
+
+                        for (let x = 0; x < 5; x++) {
+                            if (x > cartData.length - 1) return;
+                            let newSpan = document.createElement('span');
+                            newSpan.id = 'cart-item';
+                            let newName = document.createElement('p');
+                            newName.innerHTML = cartData[x].name;
+                            newSpan.appendChild(newName);
+                            document.getElementById('cart-list').appendChild(newSpan);
+                        }
+                    })
+
+                    cartbutton.addEventListener('mouseout', e => {
+
                     })
                 </script>
             </div>

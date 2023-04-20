@@ -1,9 +1,9 @@
 import csv
 from flask import jsonify
 
-def get_cart():
+def get_cart(file):
     # Retrieve the user's cart data from the CSV file
-    with open('./csv/orderCupcakes.csv') as orderCupcakes:
+    with open(file) as orderCupcakes:
         reader = csv.DictReader(orderCupcakes)
         rows = list(reader)
         

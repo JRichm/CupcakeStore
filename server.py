@@ -1,11 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from cupcakes import get_cupcakes
 app = Flask(__name__, static_url_path='/static')
 import controller
 
 @app.route("/")
 def home():
-    cupcakes = get_cupcakes('./csv/storeCupcakes.csv')
     return render_template('index.html', cupcakes = get_cupcakes('./csv/storeCupcakes.csv'))
 
 @app.route("/cupcakes")
@@ -22,7 +21,7 @@ def order():
 
 @app.route("/cart-data")
 def cart_data():
-    return controller.get_cart()
+    return controller.get_cart('./csv/orderCupcakes.csv')
 
 if __name__ == "__main__":
     app.env = 'development'
