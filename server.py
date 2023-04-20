@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request
 from cupcakes import get_cupcakes
 app = Flask(__name__, static_url_path='/static')
 import controller
@@ -15,9 +15,23 @@ def all_cupcakes():
 def individual_cupcake():
     return render_template('individual-cupcake.html')
 
-@app.route("/order")
+@app.route("/order") # change route name to custom_Cupcake
 def order():
-    return render_template('order.html')
+    cartListData = controller.get_cart('./csv/orderCupcakes.csv')
+    print('fart')
+    print(cartListData)
+    return render_template('order.html', cartListData=cartListData)
+
+@app.route("/addCustom", methods=['POST'])
+def add_custom():
+    data = request.json
+    if (data['javascript_data']['flavor'] == '' or
+        data['javascript_data']['frosting'] == ''):
+        return 'please select cake and flavor option'
+    else:
+        controller.add_custom(data)
+        return 'success'
+    
 
 @app.route("/cart-data")
 def cart_data():

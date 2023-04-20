@@ -4,18 +4,21 @@ from pprint import pprint
 
 class Cupcake(ABC):
     size = 'regular'
-    def __init__(self, name, price, flavor, frosting, filling):
+    def __init__(self, name, flavor, frosting, sprinkles, filling, price):
         self.name = name
         self.price = price
         self.flavor = flavor
         self.frosting = frosting
         self.filling = filling
-        self.sprinkles = []
+        self.sprinkles = sprinkles
 
     @abstractmethod
-    def add_sprinkles(self, *args):
-        for sprinkle_type in args:
-            self.sprinkles.append(sprinkle_type)
+    def customize_cupcake(self, flavor, frosting, sprinkles, filling, price):
+        self.flavor = flavor
+        self.frosting = frosting
+        self.sprinkles = sprinkles
+        self.filling = filling
+        self.price = price
 
     @abstractmethod
     def calculate_price(self, quantity):
@@ -24,15 +27,36 @@ class Cupcake(ABC):
 
 class Mini(Cupcake):
     size = 'mini'
-    def __init__(self, name, price, flavor, frosting, filling):
-        super().__init__(name, price, flavor, frosting, filling)
-        self.sprinkles = []
+    def __init__(self, name, flavor, frosting, sprinkles, filling, price):
+        super().__init__(name, flavor, frosting, sprinkles, filling, price)
 
     def calculate_price(self, quantity):
         return super().calculate_price(quantity)
 
-    def add_sprinkles(self, *args):
+    def customize_cupcake(self, *args):
         return super().add_sprinkles(*args)
+
+class Regular(Cupcake):
+    size = 'regular'
+    def __init__(self, name, flavor, frosting, sprinkles, filling, price):
+        super().__init__(name, flavor, frosting, sprinkles, filling, price)
+
+    def calculate_price(self, quantity):
+        return super().calculate_price(quantity)
+
+    def customize_cupcake(self, *args):
+        return super().customize_cupcake(*args)
+        
+class Large(Cupcake):
+    size = 'large'
+    def __init__(self, name, flavor, frosting, sprinkles, filling, price):
+        super().__init__(name, flavor, frosting, sprinkles, filling, price)
+
+    def calculate_price(self, quantity):
+        return super().calculate_price(quantity)
+
+    def customize_cupcake(self, *args):
+        return super().customize_cupcake(*args)
 
 def read_csv(file):
     with open(file) as csvfile:
@@ -93,4 +117,9 @@ def get_cupcakes(file):
         return reader
 
 # write_new_csv("sample.csv", cupcake_list)
-read_csv("sample.csv")
+#read_csv("sample.csv")
+
+myRegCupcake = Regular('someName', 'vanilla', 'chocolate', ['white'], 'chocolate', 2.00)
+
+myRegCupcake.customize_cupcake('vanilla', 'chocolate', ['red'], 'chocolate', 2.00)
+print(myRegCupcake.sprinkles)
