@@ -29,6 +29,7 @@
                     cartbutton.addEventListener('mouseenter', async function() {
                         const res = await fetch('/cart-data');
                         const cartData = await res.json();
+                        let cartQty = 0;
 
                         for (let x = 0; x < cartData.length; x++) {
                             if (x > cartData.length - 1) return;
@@ -48,6 +49,9 @@
                             newQuantity.innerHTML = cartData[x].quantity;
                             newQuantity.style = 'width: 20px;'
 
+                            cartQty += parseInt(cartData[x].quantity);
+                            document.getElementById('cart-qty').innerHTML = `${cartQty}x`
+
                             newSpan.appendChild(newName);
                             newSpan.appendChild(newFlavor);
                             newSpan.appendChild(newPrice);
@@ -63,6 +67,10 @@
                             cartList.removeChild(cartList.firstChild)
                         }
                     });
+
+                    cartbutton.addEventListener('click', e => {
+                        window.location.href = '/order'
+                    })
                 </script>
             </div>
         </div>

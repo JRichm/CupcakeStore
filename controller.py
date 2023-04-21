@@ -47,7 +47,7 @@ def add_custom(data):
                        'frosting': newCupcake.frosting,
                        'sprinkles': newCupcake.sprinkles,
                        'filling': newCupcake.filling,
-                       'price': f'${newCupcake.price}0',
+                       'price': f'{newCupcake.price}',
                        'quantity': '1'})
         
     with open(file_path, 'w', newline='\n') as csv_file:

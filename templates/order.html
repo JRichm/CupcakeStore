@@ -4,10 +4,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <h1>test</h1>
+    <header>
+
+    </header>
+    <content>
+        <div id="order-list">
+            {% for cupcake in cartData %}
+            <div id="order-item" style="background-color: #eeeeee; display: grid;">
+                <p style="grid-column-start: 1; grid-row-start: 1;">{{ cupcake['name'] }}</p>
+                <p style="grid-column-start: 3; grid-row-start: 1;">Flavor: {{ cupcake['flavor'] }}</p>
+                <p style="grid-column-start: 3; grid-row-start: 2;">Frosting: {{ cupcake['frosting'] }}</p>
+                <p style="grid-column-start: 4; grid-row-start: 1;">Sprinkles: {{ cupcake['sprinkles'] }}</p>
+                <p style="grid-column-start: 4; grid-row-start: 2;">Filling: {{ cupcake['filling'] }}</p>
+                <p style="grid-column-start: 5; grid-row-start: 1;">Price: ${{ cupcake['price'] }}</p>
+                <p style="grid-column-start: 5; grid-row-start: 2;">Quantity: {{ cupcake['quantity'] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="total-panel">
+            <div id="total-area">
+                <div id="total-list">
+                    {% for cupcake in cartData %}
+                    <div id="list-entry">
+                        <p style="width:225px;">{{ cupcake['name'] }}</p>
+                        <p style="width:50px; text-align:center;">${{ cupcake['price'] }}</p>
+                        <p style="width:50px; text-align:center;" class="cupcake-qty">{{ cupcake['quantity'] }}</p>
+                        {% set result = cupcake['price'] | float * cupcake['quantity'] | float %}
+                        <p style="width:70px; text-align:end;" class="item-total">${{ result }}</p>
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <p style="width:100%; text-align:center;">--------------------------------------------------------------------------------------</p>
+                    </div>
+                    <div>
+                        <script>
+                            let totalRow = document.createElement('div');
+                            let totals = document.getElementsByClassName('item-total');
+                            let cupcakeTotals = document.getElementsByClassName('cupcake-qty');
+                            let total = 0;
+                            let totalCupcakes = 0;
+                            for (let e = 0; e < totals.length; e++) {
+                                let price = totals[e].innerHTML;
+                                let cupcakes = cupcakeTotals[e].innerHTML;
+                                cupcakes = parseInt(cupcakes);
+                                console.log(price)
+                                float = parseFloat(price.replace(/[^\d.-]/g, ""));
+                                total += float;
+                                totalCupcakes += cupcakes;
+                                console.log(total, totalCupcakes);
+                            }
+                            document.getElementById('total-list').appendChild(totalRow);
+                            totalRow.id = 'total-row'
+                            let totalCakes = document.createElement('p'),
+                                orderTotal = document.createElement('p');
+                            totalCakes.innerHTML = `${totalCupcakes}`;
+                            orderTotal.innerHTML = `$${total.toFixed(2)}`;
+
+                            totalRow.appendChild(totalCakes);
+                            totalRow.appendChild(orderTotal);
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <button>Checkout</button>
+        </div>
+    </content>
 </body>
 </html>

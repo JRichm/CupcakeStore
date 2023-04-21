@@ -13,7 +13,7 @@ def all_cupcakes():
 
 @app.route("/order")
 def show_current_order():
-    return render_template('order.html')
+    return render_template('order.html', cartData=controller.get_cart('./csv/orderCupcakes.csv'))
 
 @app.route("/orders")
 def show_orders():
