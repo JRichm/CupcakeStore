@@ -11,16 +11,20 @@ def home():
 def all_cupcakes():
     return render_template('cupcakes.html')
 
-@app.route("/cupcake_individual")
-def individual_cupcake():
-    return render_template('individual-cupcake.html')
+@app.route("/order")
+def show_current_order():
+    return render_template('order.html')
 
-@app.route("/order") # change route name to custom_Cupcake
+@app.route("/orders")
+def show_orders():
+    return render_template('order.html')
+
+@app.route("/customCupcake") # change route name to custom_Cupcake
 def order():
     cartListData = controller.get_cart('./csv/orderCupcakes.csv')
     print('fart')
     print(cartListData)
-    return render_template('order.html', cartListData=cartListData)
+    return render_template('customCupcake.html', cartListData=cartListData)
 
 @app.route("/addCustom", methods=['POST'])
 def add_custom():
