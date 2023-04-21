@@ -157,11 +157,13 @@
             addToCartButton.addEventListener('click', e => {
                 let data = {
                     javascript_data: {
+                        name: 'Custom',
                         flavor: `${document.getElementById('custom-cake').innerHTML}`,
                         frosting: `${document.getElementById('custom-frosting').innerHTML}`,
                         sprinkles: `${document.getElementById('custom-topping').innerHTML}`,
                         filling: `${document.getElementById('custom-filling').innerHTML}`,
-                        size: `${document.getElementsByClassName('current-size')[0].innerHTML}`
+                        size: `${document.getElementsByClassName('current-size')[0].innerHTML}`,
+                        price: '2.0'
                     }
                 };
 
@@ -188,7 +190,7 @@
         <div id="cart-items">
             {% for item in cartListData %}
                 <div id="cart-item">
-                    <p>{{ item["name"] }}</p>
+                    <p style="width: 150px">{{ item["name"] }}</p>
                     <p>{{ item["flavor"] }}</p>
                     <p>{{ item["price"] }}</p>
                     <p>{{ item["quantity"] }}x</p>
