@@ -5,198 +5,270 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <main>
-        <aside id="menu-options">
-            <div class="main-inner-menu-box">
-                <button id="open-cake">Cake Flavor</button>
-                <button id="open-frosting">Frosting Flavor</button>
-                <button id="open-toppings">Toppings</button>
-                <button id="open-filling">Filling</button>
-            </div>
-            <div class="hidden" class="inner-menu-box" id="Cake Flavor">
-                <button id="cake-selection" class="select-back">Cake Flavor</button>
-                <button id="cake-vanilla">Vanilla</button>
-                <button id="cake-chocolate">Chocolate</button>
-                <button id="cake-strawberry">Strawberry</button>
-                <button id="cake-redVelvet">Red Velvet</button>
-            </div>
-            <div class="hidden" class="inner-menu-box" id="Frosting Flavor">
-                <button id="frosting-selection" class="select-back">Frosting Flavor</button>
-                <button id="frosting-vanilla">Vanilla</button>
-                <button id="frosting-chocolate">Chocolate</button>
-                <button id="frosting-strawberry">Strawberry</button>
-                <button id="frosting-creamCheese">Cream Cheese</button>
-            </div>
-            <div class="hidden" class="inner-menu-box" id="Toppings">
-                <button id="toppings-selection" class="select-back">Toppings</button>
-                <button id="topping-sprinkles">Sprinkles</button>
-                <button id="topping-chocolateShavings">Chocolate Shavings</button>
-                <button id="topping-strawberry">Strawberry</button>
-            </div>
-            <div class="hidden" class="inner-menu-box" id="Filling">
-                <button id="fillings-selection" class="select-back">Filling</button>
-                <button id="filling-vanilla">Vanilla</button>
-                <button id="filling-chocolate">Chocolate</button>
-                <button id="filling-strawberry">Strawberry</button>
-            </div>
+    <header>
+        <div id="page-logo">
+            <a href="http://localhost:8000/">Cupcake Crafter</a>
+        </div>
+        <div id="button-area">
+            <button id="create-cupcake">Create Cupcake</button>
             <script>
-
-                // main menu buttons
-                let mainMenu = [
-                    document.getElementById('open-cake'),
-                    document.getElementById('open-frosting'),
-                    document.getElementById('open-toppings'),
-                    document.getElementById('open-filling'),
-                ];
-
-                for (x in mainMenu) {
-                    mainMenu[x].addEventListener('click', e => {
-                        e.target.parentElement.classList.add('hidden');
-                        let buttonBox = document.getElementById(`${e.target.innerHTML}`);
-                        buttonBox.classList.remove('hidden');
-                        buttonBox.classList.add('inner-menu-box');
-                    });
-                }
-
-                // head/back buttons
-                let backButtons = [
-                    document.getElementById('cake-selection'),
-                    document.getElementById('frosting-selection'),
-                    document.getElementById('toppings-selection'),
-                    document.getElementById('fillings-selection')
-                ];
-
-                for (y in backButtons) {
-                    backButtons[y].addEventListener('click', e => {
-                        console.log('dookie')
-                        e.target.parentElement.classList.add('hidden');
-                        mainMenu[0].parentElement.classList.remove('hidden');
-                    });
-                }
-
-                // each choice's button
-                let selectors = [
-                    document.getElementById('cake-vanilla'),
-                    document.getElementById('cake-chocolate'),
-                    document.getElementById('cake-strawberry'),
-                    document.getElementById('cake-redVelvet'),
-                    document.getElementById('frosting-vanilla'),
-                    document.getElementById('frosting-chocolate'),
-                    document.getElementById('frosting-strawberry'),
-                    document.getElementById('frosting-creamCheese'),
-                    document.getElementById('topping-sprinkles'),
-                    document.getElementById('topping-chocolateShavings'),
-                    document.getElementById('topping-strawberry'),
-                    document.getElementById('filling-vanilla'),
-                    document.getElementById('filling-chocolate'),
-                    document.getElementById('filling-strawberry')
-                ];
-
-                for (z in selectors) {
-                    if (selectors[z]) {
-                        console.log(selectors[z])
-                        selectors[z].addEventListener('click', e => {
-                            keyValue = e.target.id.split('-');
-                            console.log(keyValue);
-                            document.getElementById(`custom-${keyValue[0]}`).innerHTML=keyValue[1];
-                        });
-                    }   
-                }
+                document.getElementById('create-cupcake').addEventListener('click', e => {
+                    window.location.href = '/customCupcake'
+                })
             </script>
-        </aside>
-        <section id="cupcake-preview">
-            <div id="cupcake-area">
-                <div id="cupcake-description">
-                    <span class="custom-option-line">
-                        <p>Cake Flavor:</p>
-                        <p id="custom-cake"></p>
-                    </span>
-                    <span class="custom-option-line">
-                        <p>Frosting Flavor:</p>
-                        <p id="custom-frosting"></p>
-                    </span>
-                    <span class="custom-option-line">
-                        <p>Toppings:</p>
-                        <p id="custom-topping"></p>
-                    </span>
-                    <span class="custom-option-line">
-                        <p>Filling:</p>
-                        <p id="custom-filling"></p>
-                    </span>
-                </div>
-                <div id="cupcake-picture">
+            <div id="cart">
+                <button id="cart-button">Cart</button>
+                <p id="cart-qty">0x</p>
+                <div id="cart-list"></div>
+                <script>
+                    const cartbutton = document.getElementById('cart-button');
 
-                </div>
-                <div id="size-buttons">
-                    <button id="sizeMini">mini</button>
-                    <button id="sizeRegular" class="current-size">regular</button>
-                    <button id="sizeLarge">large</button>
-                    <script>
-                        let sizeButtons = [
-                            document.getElementById('sizeMini'),    
-                            document.getElementById('sizeRegular'),   
-                            document.getElementById('sizeLarge')    
-                        ];
+                    cartbutton.addEventListener('mouseenter', async function() {
+                        const res = await fetch('/cart-data');
+                        const cartData = await res.json();
+                        let cartQty = 0;
 
-                        for (size in sizeButtons) {
-                            sizeButtons[size].addEventListener('click', e => {
-                                document.getElementsByClassName('current-size')[0].classList.remove('current-size');
-                                e.target.classList.add('current-size');
-                            })
+                        for (let x = 0; x < cartData.length; x++) {
+                            if (x > cartData.length - 1) return;
+                            let newSpan = document.createElement('div');
+                            newSpan.id = 'cart-item';
+
+                            let newName = document.createElement('p'),
+                                newFlavor  = document.createElement('p'),
+                                newPrice = document.createElement('p'),
+                                newQuantity = document.createElement('p');
+
+                            newName.innerHTML = cartData[x].name;
+                            newName.style = 'width: 200px;'
+                            newFlavor.innerHTML = cartData[x].flavor;
+                            newPrice.innerHTML = cartData[x].price;
+                            newPrice.style = 'width: 30px;'
+                            newQuantity.innerHTML = cartData[x].quantity;
+                            newQuantity.style = 'width: 20px;'
+
+                            cartQty += parseInt(cartData[x].quantity);
+                            document.getElementById('cart-qty').innerHTML = `${cartQty}x`
+
+                            newSpan.appendChild(newName);
+                            newSpan.appendChild(newFlavor);
+                            newSpan.appendChild(newPrice);
+                            newSpan.appendChild(newQuantity);
+                            document.getElementById('cart-list').appendChild(newSpan);
+                            document.getElementById('cart-list').classList.remove('hidden');
                         }
-                    </script>
-                </div>
-            </div>
-            <button id='add-custom-cupcake-button'>Add to Cart</button>
-        </section>
-        <script>
-            let addToCartButton = document.getElementById('add-custom-cupcake-button');
-            addToCartButton.addEventListener('click', e => {
-                let data = {
-                    javascript_data: {
-                        name: 'Custom',
-                        flavor: `${document.getElementById('custom-cake').innerHTML}`,
-                        frosting: `${document.getElementById('custom-frosting').innerHTML}`,
-                        sprinkles: `${document.getElementById('custom-topping').innerHTML}`,
-                        filling: `${document.getElementById('custom-filling').innerHTML}`,
-                        size: `${document.getElementsByClassName('current-size')[0].innerHTML}`,
-                        price: '2.0'
-                    }
-                };
+                    });
 
-                fetch('/addCustom', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // handle the response from the server
-                    location.reload
-                })
-                .catch(err => console.log(err));
-            });
-        </script>
-    </main>
-    <div id="cart-panel">
-        <div id="cart-header">
-            <p>Cart</p>
+                    cartbutton.addEventListener('mouseleave', e => {
+                        let cartList = document.getElementById('cart-list')
+                        while (cartList.firstChild){
+                            cartList.removeChild(cartList.firstChild)
+                        }
+                    });
+
+                    cartbutton.addEventListener('click', e => {
+                        window.location.href = '/order'
+                    })
+                </script>
+            </div>
         </div>
-        <div id="cart-items">
-            {% for item in cartListData %}
-                <div id="cart-item">
-                    <p style="width: 150px">{{ item["name"] }}</p>
-                    <p>{{ item["flavor"] }}</p>
-                    <p>{{ item["price"] }}</p>
-                    <p>{{ item["quantity"] }}x</p>
+    </header>
+    <content>
+        <main>
+            <aside id="menu-options">
+                <div class="main-inner-menu-box">
+                    <button id="open-cake">Cake Flavor</button>
+                    <button id="open-frosting">Frosting Flavor</button>
+                    <button id="open-toppings">Toppings</button>
+                    <button id="open-filling">Filling</button>
                 </div>
-            {% endfor %}
+                <div class="hidden" class="inner-menu-box" id="Cake Flavor">
+                    <button id="cake-selection" class="select-back">Cake Flavor</button>
+                    <button id="cake-vanilla">Vanilla</button>
+                    <button id="cake-chocolate">Chocolate</button>
+                    <button id="cake-strawberry">Strawberry</button>
+                    <button id="cake-redVelvet">Red Velvet</button>
+                </div>
+                <div class="hidden" class="inner-menu-box" id="Frosting Flavor">
+                    <button id="frosting-selection" class="select-back">Frosting Flavor</button>
+                    <button id="frosting-vanilla">Vanilla</button>
+                    <button id="frosting-chocolate">Chocolate</button>
+                    <button id="frosting-strawberry">Strawberry</button>
+                    <button id="frosting-creamCheese">Cream Cheese</button>
+                </div>
+                <div class="hidden" class="inner-menu-box" id="Toppings">
+                    <button id="toppings-selection" class="select-back">Toppings</button>
+                    <button id="topping-sprinkles">Sprinkles</button>
+                    <button id="topping-chocolateShavings">Chocolate Shavings</button>
+                    <button id="topping-strawberry">Strawberry</button>
+                </div>
+                <div class="hidden" class="inner-menu-box" id="Filling">
+                    <button id="fillings-selection" class="select-back">Filling</button>
+                    <button id="filling-vanilla">Vanilla</button>
+                    <button id="filling-chocolate">Chocolate</button>
+                    <button id="filling-strawberry">Strawberry</button>
+                </div>
+                <script>
+    
+                    // main menu buttons
+                    let mainMenu = [
+                        document.getElementById('open-cake'),
+                        document.getElementById('open-frosting'),
+                        document.getElementById('open-toppings'),
+                        document.getElementById('open-filling'),
+                    ];
+    
+                    for (x in mainMenu) {
+                        mainMenu[x].addEventListener('click', e => {
+                            e.target.parentElement.classList.add('hidden');
+                            let buttonBox = document.getElementById(`${e.target.innerHTML}`);
+                            buttonBox.classList.remove('hidden');
+                            buttonBox.classList.add('inner-menu-box');
+                        });
+                    }
+    
+                    // head/back buttons
+                    let backButtons = [
+                        document.getElementById('cake-selection'),
+                        document.getElementById('frosting-selection'),
+                        document.getElementById('toppings-selection'),
+                        document.getElementById('fillings-selection')
+                    ];
+    
+                    for (y in backButtons) {
+                        backButtons[y].addEventListener('click', e => {
+                            console.log('dookie')
+                            e.target.parentElement.classList.add('hidden');
+                            mainMenu[0].parentElement.classList.remove('hidden');
+                        });
+                    }
+    
+                    // each choice's button
+                    let selectors = [
+                        document.getElementById('cake-vanilla'),
+                        document.getElementById('cake-chocolate'),
+                        document.getElementById('cake-strawberry'),
+                        document.getElementById('cake-redVelvet'),
+                        document.getElementById('frosting-vanilla'),
+                        document.getElementById('frosting-chocolate'),
+                        document.getElementById('frosting-strawberry'),
+                        document.getElementById('frosting-creamCheese'),
+                        document.getElementById('topping-sprinkles'),
+                        document.getElementById('topping-chocolateShavings'),
+                        document.getElementById('topping-strawberry'),
+                        document.getElementById('filling-vanilla'),
+                        document.getElementById('filling-chocolate'),
+                        document.getElementById('filling-strawberry')
+                    ];
+    
+                    for (z in selectors) {
+                        if (selectors[z]) {
+                            console.log(selectors[z])
+                            selectors[z].addEventListener('click', e => {
+                                keyValue = e.target.id.split('-');
+                                console.log(keyValue);
+                                document.getElementById(`custom-${keyValue[0]}`).innerHTML=keyValue[1];
+                            });
+                        }   
+                    }
+                </script>
+            </aside>
+            <section id="cupcake-preview">
+                <div id="cupcake-area">
+                    <div id="cupcake-description">
+                        <span class="custom-option-line">
+                            <p>Cake Flavor:</p>
+                            <p id="custom-cake"></p>
+                        </span>
+                        <span class="custom-option-line">
+                            <p>Frosting Flavor:</p>
+                            <p id="custom-frosting"></p>
+                        </span>
+                        <span class="custom-option-line">
+                            <p>Toppings:</p>
+                            <p id="custom-topping"></p>
+                        </span>
+                        <span class="custom-option-line">
+                            <p>Filling:</p>
+                            <p id="custom-filling"></p>
+                        </span>
+                    </div>
+                    <div id="cupcake-picture">
+    
+                    </div>
+                    <div id="size-buttons">
+                        <button id="sizeMini">mini</button>
+                        <button id="sizeRegular" class="current-size">regular</button>
+                        <button id="sizeLarge">large</button>
+                        <script>
+                            let sizeButtons = [
+                                document.getElementById('sizeMini'),    
+                                document.getElementById('sizeRegular'),   
+                                document.getElementById('sizeLarge')    
+                            ];
+    
+                            for (size in sizeButtons) {
+                                sizeButtons[size].addEventListener('click', e => {
+                                    document.getElementsByClassName('current-size')[0].classList.remove('current-size');
+                                    e.target.classList.add('current-size');
+                                })
+                            }
+                        </script>
+                    </div>
+                </div>
+                <button id='add-custom-cupcake-button'>Add to Cart</button>
+            </section>
+            <script>
+                let addToCartButton = document.getElementById('add-custom-cupcake-button');
+                addToCartButton.addEventListener('click', e => {
+                    let data = {
+                        javascript_data: {
+                            name: 'Custom',
+                            flavor: `${document.getElementById('custom-cake').innerHTML}`,
+                            frosting: `${document.getElementById('custom-frosting').innerHTML}`,
+                            sprinkles: `${document.getElementById('custom-topping').innerHTML}`,
+                            filling: `${document.getElementById('custom-filling').innerHTML}`,
+                            size: `${document.getElementsByClassName('current-size')[0].innerHTML}`,
+                            price: '2.0'
+                        }
+                    };
+    
+                    fetch('/addCustom', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // handle the response from the server
+                        location.reload
+                    })
+                    .catch(err => console.log(err));
+                });
+            </script>
+        </main>
+        <div id="cart-panel">
+            <div id="cart-header">
+                <p>Cart</p>
+            </div>
+            <div id="cart-items">
+                {% for item in cartListData %}
+                    <div id="cart-item">
+                        <p style="width: 150px">{{ item["name"] }}</p>
+                        <p>{{ item["flavor"] }}</p>
+                        <p>{{ item["price"] }}</p>
+                        <p>{{ item["quantity"] }}x</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    </content>
 </body>
 </html>

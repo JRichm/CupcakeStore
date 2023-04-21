@@ -2,8 +2,18 @@ header {
     background-color: #bee7e8;
     display: flex;
     align-items: center;
-    justify-content: end;
-    padding: 75px 100px 75px 100px;
+    justify-content: space-between;
+    padding: 10px 100px 10px 100px;
+}
+
+#page-logo a {
+    text-decoration: none;
+    font-size: 80px;
+    font-weight: bolder;
+    font-family: 'Kalam', cursive;
+    -webkit-text-fill-color: #fed766;
+    -webkit-text-stroke-color: #f4acb7;
+    -webkit-text-stroke-width: 2px;
 }
 
 #button-area {

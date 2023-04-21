@@ -5,9 +5,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <div id="page-logo">
+            <a href="http://localhost:8000/">Cupcake Crafter</a>
+        </div>
+        <div id="button-area">
+            <button id="create-cupcake">Create Cupcake</button>
+            <script>
+                document.getElementById('create-cupcake').addEventListener('click', e => {
+                    window.location.href = '/customCupcake'
+                })
+            </script>
+            <div id="cart">
+                <button id="cart-button">Cart</button>
+                <p id="cart-qty">0x</p>
+                <div id="cart-list"></div>
+                <script>
+                    const cartbutton = document.getElementById('cart-button');
+
+                    cartbutton.addEventListener('mouseenter', async function() {
+                        const res = await fetch('/cart-data');
+                        const cartData = await res.json();
+                        let cartQty = 0;
+
+                        for (let x = 0; x < cartData.length; x++) {
+                            if (x > cartData.length - 1) return;
+                            let newSpan = document.createElement('div');
+                            newSpan.id = 'cart-item';
+
+                            let newName = document.createElement('p'),
+                                newFlavor  = document.createElement('p'),
+                                newPrice = document.createElement('p'),
+                                newQuantity = document.createElement('p');
+
+                            newName.innerHTML = cartData[x].name;
+                            newName.style = 'width: 200px;'
+                            newFlavor.innerHTML = cartData[x].flavor;
+                            newPrice.innerHTML = cartData[x].price;
+                            newPrice.style = 'width: 30px;'
+                            newQuantity.innerHTML = cartData[x].quantity;
+                            newQuantity.style = 'width: 20px;'
+
+                            cartQty += parseInt(cartData[x].quantity);
+                            document.getElementById('cart-qty').innerHTML = `${cartQty}x`
+
+                            newSpan.appendChild(newName);
+                            newSpan.appendChild(newFlavor);
+                            newSpan.appendChild(newPrice);
+                            newSpan.appendChild(newQuantity);
+                            document.getElementById('cart-list').appendChild(newSpan);
+                            document.getElementById('cart-list').classList.remove('hidden');
+                        }
+                    });
+
+                    cartbutton.addEventListener('mouseleave', e => {
+                        let cartList = document.getElementById('cart-list')
+                        while (cartList.firstChild){
+                            cartList.removeChild(cartList.firstChild)
+                        }
+                    });
+
+                    cartbutton.addEventListener('click', e => {
+                        window.location.href = '/order'
+                    })
+                </script>
+            </div>
+        </div>
+    </header>
     <h1>test</h1>
 </body>
 </html>
