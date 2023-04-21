@@ -30,20 +30,39 @@
                         const res = await fetch('/cart-data');
                         const cartData = await res.json();
 
-                        for (let x = 0; x < 5; x++) {
+                        for (let x = 0; x < cartData.length; x++) {
                             if (x > cartData.length - 1) return;
-                            let newSpan = document.createElement('span');
+                            let newSpan = document.createElement('div');
                             newSpan.id = 'cart-item';
-                            let newName = document.createElement('p');
+
+                            let newName = document.createElement('p'),
+                                newFlavor  = document.createElement('p'),
+                                newPrice = document.createElement('p'),
+                                newQuantity = document.createElement('p');
+
                             newName.innerHTML = cartData[x].name;
+                            newName.style = 'width: 200px;'
+                            newFlavor.innerHTML = cartData[x].flavor;
+                            newPrice.innerHTML = cartData[x].price;
+                            newPrice.style = 'width: 30px;'
+                            newQuantity.innerHTML = cartData[x].quantity;
+                            newQuantity.style = 'width: 20px;'
+
                             newSpan.appendChild(newName);
+                            newSpan.appendChild(newFlavor);
+                            newSpan.appendChild(newPrice);
+                            newSpan.appendChild(newQuantity);
                             document.getElementById('cart-list').appendChild(newSpan);
+                            document.getElementById('cart-list').classList.remove('hidden');
                         }
-                    })
+                    });
 
-                    cartbutton.addEventListener('mouseout', e => {
-
-                    })
+                    cartbutton.addEventListener('mouseleave', e => {
+                        let cartList = document.getElementById('cart-list')
+                        while (cartList.firstChild){
+                            cartList.removeChild(cartList.firstChild)
+                        }
+                    });
                 </script>
             </div>
         </div>
@@ -63,6 +82,7 @@
                     <h4>Flavor: {{ cupcake["flavor"] }}</h4>
                     <h4>Frosting: {{ cupcake["frosting"] }}</h4>
                     <h4>Sprinkles: {{ cupcake["sprinkles"] }}</h4>
+                    <h4>Filling: {{ cupcake["filling"] }}</h4>
                     <h4>Price: {{ cupcake["price"] }}</h4>
                 </div>
                 {% endfor %}
@@ -71,15 +91,74 @@
 
                 // document selectors
                 let hoverSquare = document.createElement('div'),
+                    emptyElement = document.createElement('p'),
                     hoverSquareText = document.createElement('p'),
                     cupcakeElements = document.getElementsByClassName('cupcake-element'),
+                    buttonArea = document.createElement('div'),
                     currentElement, previousElement;
 
+                let sButton = document.createElement('button'),
+                    mButton = document.createElement('button'),
+                    lButton = document.createElement('button');
+
+                sButton.innerHTML = 'mini'
+                mButton.innerHTML = 'regular'
+                lButton.innerHTML = 'large'
+
+
+                let sizeButtons = [sButton,mButton,lButton];
+
+                for (b in sizeButtons) {
+                    sizeButtons[b].id = 'hover-size-button'
+                    sizeButtons[b].addEventListener('click', e => {
+                        let children = e.target.parentElement.parentElement.parentElement.children;
+                        let dataArr = [];
+                        for (let i = 0; i < children.length; i++) {
+                            let lineData = children[i].innerHTML.split(':');
+                            if (lineData[1]) {
+                                dataArr.push(lineData[1]);
+                            } else {
+                                dataArr.push(lineData[0]);
+                            }
+                        }
+
+                        data = {
+                            javascript_data: {
+                                name: `${dataArr[0]}`,
+                                flavor: `${dataArr[1]}`,
+                                frosting: `${dataArr[2]}`,
+                                sprinkles: `${dataArr[3]}`,
+                                filling: `${dataArr[4]}`,
+                                price: `${dataArr[5]}`,
+                                size: `${e.target.innerHTML}`
+                            }
+                        };
+
+                        fetch('/addCustom', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // handle the response from the server
+                            location.reload
+                        })
+                        .catch(err => console.log(err));
+                    })
+                    buttonArea.appendChild(sizeButtons[b]);
+                }
+
                 hoverSquare.id = 'hover-square'
+                buttonArea.id = 'hover-buttons'
                 hoverSquareText.innerHTML = 'add to cart'
                 hoverSquareText.id = 'hover-square-text'
+                hoverSquare.appendChild(emptyElement);
                 hoverSquare.appendChild(hoverSquareText);
-
+                hoverSquare.appendChild(buttonArea);
+                
                 // each cupcake square
                 for (eachElement in cupcakeElements) {
                     if (cupcakeElements[eachElement].nodeType === 1) {
@@ -106,15 +185,6 @@
                             currentElement, previousElement = undefined
                             hoverSquare.classList.add('hidden');
                             console.log('mouse-out');
-                        })
-
-                        // click
-                        cupcakeElements[eachElement].addEventListener('click', e => {
-                            if (e.target.id === '') {
-                                console.log('Add ' + e.target.parentElement.id + ' to cart!')
-                            } else {
-                                console.log('Add ' + e.target.id + ' to cart!');
-                            }
                         })
                     }
                 }

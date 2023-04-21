@@ -30,13 +30,21 @@ header {
 }
 
 #cart-list {
-    background-color: white;
-    position:static;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
 }
 
 #cart-item {
-    width: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    width: 450px;
     height: 50px;
+    margin-left: -240px;
+    background-color: white;
+    justify-content: space-evenly;
 }
 
 #cart-qty {
@@ -96,28 +104,47 @@ main {
 
 .cupcake-element:hover {
     border-color: #fed766;
-    cursor: pointer;
 }
 
 #hover-square {
     background-color: #bee7e8;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     position: absolute;
     height: 250px;
     width: 250px;
-    margin-top: -248px;
+    margin-top: -288px;
     margin-left: -25px;
     padding: 25px;
     border-radius: 22px;
-    opacity: 75%;
+    opacity: 98%;
 }
 
 #hover-square-text {
     font-size: 25px;
     font-weight: bolder;
     font-style: italic;
+}
+
+#hover-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+#hover-buttons button {
+    text-align: center;
+    width: 55px;
+    height: 45px;
+    border-radius: 8px;
+    border:none;
+}
+
+#hover-buttons button:hover {
+    cursor: pointer;
 }
 
 .hidden {

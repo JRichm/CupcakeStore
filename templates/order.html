@@ -159,7 +159,7 @@
                     javascript_data: {
                         flavor: `${document.getElementById('custom-cake').innerHTML}`,
                         frosting: `${document.getElementById('custom-frosting').innerHTML}`,
-                        toppings: `${document.getElementById('custom-topping').innerHTML}`,
+                        sprinkles: `${document.getElementById('custom-topping').innerHTML}`,
                         filling: `${document.getElementById('custom-filling').innerHTML}`,
                         size: `${document.getElementsByClassName('current-size')[0].innerHTML}`
                     }
@@ -175,7 +175,7 @@
                 .then(response => response.json())
                 .then(data => {
                     // handle the response from the server
-                    console.log(data);
+                    location.reload
                 })
                 .catch(err => console.log(err));
             });
